@@ -1,0 +1,145 @@
+Javascript
+    - a high-level,
+    - garbage-collected
+    - interreted or just-in-time compiled
+    - multi-paradigm
+    - prototype-based object-oriented
+    - first-class functions
+    - dynamic
+    - single-threaded
+    - non-blocking event loop
+
+Concurrency Model
+    - how Javascript engine handles multiple tasks at the same time
+    - single-threaded, one thing at a time.
+    - long running tasks(?) -> event-loop 
+
+
+Javascript Engine 
+    - program that executes the javascript code.
+    - example: V8 Engine
+
+JS Engine 
+    - Call Stack
+        - where the code is executed (execution context).
+    - Heap
+        - stores the objects in memory.
+
+Compilation vs Interpretation
+    Compilation
+        - Entire code is converted into machine code at once, and written to a binary file that can be executed by a computer which can happen way after compilation.
+    Interpretation
+        - Interpreted runs through the source code and executes it line by line.
+    Just-in-time (JIT) Compilation
+        - Entire code is converted into machine code at once, then executed immediately.
+
+
+Modern Just-in-Time compilation of Javascript
+    (1) Parsing (AST)
+    (2) Compilation (AST -> Machine Code)
+    (3) Execution
+    (4) Optimization
+
+JS Runtime in the Browser
+    - container including all the things we need to use JavaScript 
+    - JS Engine + Web API's (DOM, Timers, Fetch API) + Callback Queue (Callbuck Functions, Event Handlers - click, Event Loop - essential for non-blocking concurrency model).
+    - 
+
+JS Runtime in Nodejs
+    - similar but without web apis, instead C++ Bindings and Thread Pool.
+
+
+-------------------
+
+
+Execution Context
+    - Compilation
+    - Execution
+        - (1) Creation of Global Execution Context for top-level code (not inside a function). -- declarations
+        - Execution context - environment in which a piece of javascript is executed.
+        - Exactly one global execution context (EC).
+        - (2) Execution of top-level code inside execution context (EC)
+        - (3) Exeuction of functions, and waiting for callbacks.
+        - One execution text per function. -- A new execution context is created for each function call.
+
+
+Inside the execution context 
+    Creation Phase
+        - right before execution.
+        (1) Variable environment
+            - let, const, var
+            - functions
+            - arguments object (passed to a function)
+        (2) Scope Chain
+            - references to variables that are located outside of the function.
+        (3) this keyword
+        ** arrow functions do not get their own but their closest parent's arguments keyword and this keyword.
+
+Call Stack
+    - a place where execution contexts get stacked on top of each other, to keep track of where we are in the execution.
+    - the stack on top is the one currently running, when it's finished it will be removed from the stack, and will resume running previous execution context.
+    - Global
+    - Global -> First 
+        - when a function call occurs, an execution context is created and is placed on top of the global execution context.
+    - Global -> First -> Second
+        - same goes for a function call within a function call.
+
+
+---------------------
+Scope Concepts
+    Scoping
+        - how our program's variables are organized, and accessed.
+        - Where do variables live? Where can we access variables.
+    
+    Lexical Scoping
+        - scoping is controlled by placement of functions and blocks in the code.
+        - function inside a function has access to the variable of the parent function.
+        - child/sibling scopes cannot access each other's variables.
+     
+     Scope
+        - a space or environment in which a certain variable is declared.
+        - global scope
+        - function scope
+        - block scope
+    
+    Scope of a variable
+        - region of our code where a certain variable can be accessed.
+
+
+3 Types of Scope
+    Global Scope
+        - top-level code
+        - outside of the function or block
+        - accessible everywhere
+
+    Function Scope
+        - variables are accessible only inside the function, not outside
+        - local scope
+
+
+
+    Block Scope (ES6)
+        - variables accesible only inside block (block scoped) -- everything between curly braces {}
+        - example: if, for
+        - this only applies for let and const
+        - functions are also block-scoped in strict mode only.
+
+
+Scope Chain  
+    - inner scopes always have access to all variables from their outer scopes. eg. function 2 is defined inside function 1.
+    - also applies to function arguments.
+    - variable lookup 
+    - only let and const are block scoped ( '{}' ), not var. 
+
+
+
+Scope Chain vs Call Stack
+    Call Stack
+        - order in which the functions are called
+    
+    Scope Chain
+        - order in which the functions are written
+
+
+----------------------
+Hoisting In Javascript
