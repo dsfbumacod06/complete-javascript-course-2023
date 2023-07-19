@@ -142,4 +142,60 @@ Scope Chain vs Call Stack
 
 
 ----------------------
+
 Hoisting In Javascript
+
+Hoisting    
+    - Makes some types of variables accessible/usable in the code before they are actually declared.
+    - Variables lifted to the top of their scope.
+    Behind the scenes:
+        - code is scanned for variable declarations, and for each variable, new property is created in the variable environment object.
+
+                             :  hoisted? - initial value - scope
+function                     :  hoisted - actual function - block (strict mode)
+var                          :  hoisted - undefined - function
+let, const                   :  no - uninitialized,TDZ - block
+function expressions, arrows :  depends in they are declared using var or let/const.
+    
+
+Temporal Deadzone, TDZ (let/const)
+    - zone/space where the variable is not accesible in its scope.
+    - variable is defined on a later line.
+    - javascript knows the variable is defined but not accessible at this point in the code. (error message: cannot access 'variable' before initialization.)
+    - para siyang space where variables that are defined in the code but not available for use at the moment.
+    - starts at the start of the scope until the variable is defined.
+
+Why TDZ?
+    - easier to avoid/catch errors.
+
+If hoisting causes errors,
+Why hoisting?
+    - allows functions to be used before declaring them.
+    - makes code readable.
+    - applied to var because that is the only way it could be done at that time 
+    - var hoisting is just a byproduct.
+
+
+
+---------------------
+'this' keyword
+    - takes the value of the owner of the function.
+    - dynamic
+    - the value is assigned only when the function is actually called.
+
+4 ways functions can be called:
+    Method
+        -> this = <object calling this method>
+
+    Simple function call
+        -> this = undefined (strict mode, else global object - window)
+
+    Arrow functions
+        -> this = <this of surrounding/parent function (lexical this)>
+    
+    Event Listener
+        -> this = <DOM element that the handler is attached to>
+
+'this' does not point to the function itself, and also not the variable environment
+
+    to follow: new, call, apply, bind
